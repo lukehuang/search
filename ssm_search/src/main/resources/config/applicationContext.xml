@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--
+    ①@Repository/@Service/@Component由Spring扫描
+    ②@Controller由SpringMVC扫描
+    -->
+    <context:component-scan base-package="*.mapper"/>
+
+    <!-- context开启注解 -->
+    <context:annotation-config/>
+
+    <!--************************************************************分割线************************************************************-->
+
+    <!-- 引入配置 -->
+    <context:property-placeholder location="classpath:config/application.properties"/>
+
+    <!-- 数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--************************************************************半分割线******************************-->
+
+    <!--
+    原生MyBatis配置（新版）
+    ①新版只需要在Spring中配置，不需要MyBatis的单独配置文件
+    ②Dao/Mapper只写接口，不需要实现类
+    ③搭配MyBatis Generator生成通用方法
+    -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:/mapper/*.xml"/>
+        <!--
+        pagehelper插件
+        ①可以在MyBatis单独配置中配置，也可以在Spring中配置（二选一）
+        ②PageInterceptor的property>value哪怕值为空也必须要写，否则报错
+        -->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <value>
+                            params=value1
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="*.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+</beans>

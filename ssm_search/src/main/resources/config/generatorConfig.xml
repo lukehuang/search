@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <!-- 引入外部配置，通过${property}方式调用 -->
+    <properties resource="config/application.properties"/>
+
+    <!-- 引入MySQL驱动（通过Maven运行MBG，直接在Maven中引入） -->
+    <!--<classPathEntry location="mysql-connector-java-5.1.38.jar"/>-->
+
+    <!--
+    ①targetRuntime
+    MyBatis3Simple：不生成和Example搜索有关的内容（Example可以用来生成一个几乎无限的where子句）
+    MyBatis3：在<table>中禁用Example+MyBatis3附加insertSelective/updateByPrimaryKeySelective语句
+    ②flat：一张表只生成一个实体类
+    -->
+    <context id="MysqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <!-- 添加分隔符/编码/模板等 -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!-- 插件 -->
+        <!--<plugin/>-->
+
+        <!-- 不生成注释 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!-- JDBC连接 -->
+        <jdbcConnection driverClass="${jdbc.driverClassName}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+
+        <!--
+        ①JDBC（MySQL）与Java类型转换
+        ②forceBigDecimals：不强制转换为java.math.BigDecimal
+        -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--
+        ①实体类
+        ②trimStrings：去掉不必要的空格
+        -->
+        <javaModelGenerator targetPackage="com.model" targetProject="src/main/java">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- SQL XML -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+
+        <!--
+        ①mapper
+        ②XMLMAPPER：Mapper接口+SQL XML
+        -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.mapper" targetProject="src/main/java"/>
+
+        <!--
+        ①tableName="%"：匹配所有表
+        ②domainObjectName：实体类名称
+        ③enableXXX：常见SQL语句
+        ④MyBatis3+禁用Example语句
+        -->
+        <table tableName="user"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <!-- standardQuestion在数据库中为text型，识别为varcharx型，不生成WithBLOBs -->
+            <columnOverride column="standard_question" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

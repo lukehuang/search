@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.TestMapper">
+
+    <resultMap id="BaseResultMap" type="com.model.Test">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="property1" property="property1" jdbcType="VARCHAR"/>
+        <result column="property2" property="property2" jdbcType="VARCHAR"/>
+        <result column="property3" property="property3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, property1, property2, property3
+    </sql>
+
+    <insert id="insert" parameterType="com.model.Test">
+        insert into search_test (id, property1, property2, property3)
+        values (#{id,jdbcType=INTEGER}, #{property1,jdbcType=VARCHAR}, #{property2,jdbcType=VARCHAR}, #{property3,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.model.Test">
+        insert into search_test
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="property1 != null">
+                property1,
+            </if>
+            <if test="property2 != null">
+                property2,
+            </if>
+            <if test="property3 != null">
+                property3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="property1 != null">
+                #{property1,jdbcType=VARCHAR},
+            </if>
+            <if test="property2 != null">
+                #{property2,jdbcType=VARCHAR},
+            </if>
+            <if test="property3 != null">
+                #{property3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.model.Test">
+        update search_test
+        set property1 = #{property1,jdbcType=VARCHAR},
+            property2 = #{property2,jdbcType=VARCHAR},
+            property3 = #{property3,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.model.Test">
+        update search_test
+        <set>
+            <if test="property1 != null">
+                property1 = #{property1,jdbcType=VARCHAR},
+            </if>
+            <if test="property2 != null">
+                property2 = #{property2,jdbcType=VARCHAR},
+            </if>
+            <if test="property3 != null">
+                property3 = #{property3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from search_test
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from search_test
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!--************************************************************分割线************************************************************-->
+    <!-- todo 搜索 -->
+
+    <!--
+    在selectPropertyGroup时，将group by property的值，全部关联到commonProperty中
+    -->
+    <resultMap id="BaseResultMap2" type="com.model.Test">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="property1" property="commonProperty" jdbcType="VARCHAR"/>
+        <result column="property2" property="commonProperty" jdbcType="VARCHAR"/>
+        <result column="property3" property="commonProperty" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--
+    搜索条件收集
+    ①将表名/字段名等非SQL字符串用#{}传参，最终的SQL会变为 group by 'property1'
+    ②用@Param注解+${}传参
+    -->
+    <select id="selectPropertyGroup" resultMap="BaseResultMap2" parameterType="java.lang.String">
+        select id,${property}
+        from search_test
+        group by ${property}
+    </select>
+
+    <!--************************************************************半分割线******************************-->
+    <!-- 多重模糊搜索（AND） -->
+
+    <select id="selectFuzzy" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from search_test
+        <if test="property1 != null and property1.size > 0">
+            where ( property1 like
+            <foreach collection="property1" index="index" item="alias" separator=" and property1 like " close=")">
+                '%${alias}%'
+            </foreach>
+        </if>
+    </select>
+
+    <!--************************************************************半分割线******************************-->
+    <!-- 多重模糊+条件搜索 -->
+
+    <select id="selectFuzzy2" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from search_test
+        where ( property1 like
+        <choose>
+            <when test="property1 != null and property1.size > 0">
+                <foreach collection="property1" index="index" item="alias" separator=" and property1 like " close=")">
+                    '%${alias}%'
+                </foreach>
+            </when>
+            <otherwise>
+                '%%' )
+            </otherwise>
+        </choose>
+
+        <if test="property2 != null and property2.size > 0">
+            and property2 in
+            <foreach collection="property2" index="index" item="alias" open="(" separator="," close=")">
+                #{alias}
+            </foreach>
+        </if>
+
+        <if test="property3 != null and property3.size > 0">
+            and property3 in
+            <foreach collection="property3" index="index" item="alias" open="(" separator="," close=")">
+                #{alias}
+            </foreach>
+        </if>
+    </select>
+
+</mapper>

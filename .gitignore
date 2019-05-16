@@ -1,0 +1,18 @@
+# 编译后的class
+*.class
+
+# 日志
+*.log
+
+# Idea配置
+*.iml
+
+# 各种压缩包
+# *.jar
+# *.rar
+
+# 各种文件夹
+/.idea/
+/out/
+
+/**/target/
