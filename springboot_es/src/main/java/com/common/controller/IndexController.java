@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 public class IndexController {
 
-    @RequestMapping("")
+    @RequestMapping("/")
     public ModelAndView index() {
         return new ModelAndView("redirect:/data/list");
     }

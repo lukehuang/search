@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 public class ProductController {
 
     @Autowired
     private ProductMapper productMapper;
 
     @ResponseBody
-    @RequestMapping("test")
+    @RequestMapping("/test")
     public String test() {
         String indexName = "how2java";
 
