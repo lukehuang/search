@@ -18,7 +18,6 @@
 # java_es
 ①JDK8<br>
 ②elasticsearch-rest-high-level-client6.2.2+HttpClient4.4（必须是4.4）+ES6.2.2<br>
-
 ③How2J ES示例<br>
 ESIndexUtil（ES索引管理）<br>
 ESDocumentUtil（ES文档管理）<br>
@@ -32,7 +31,6 @@ Java Web项目的持久层看作数据库和项目之间的中间件，ES模块�
 # ssm_es
 ①JDK8<br>
 ②SS+MBP+elasticsearch-rest-high-level-client6.2.2+ES6.2.2<br>
-
 ③ES中间件<br>
 通过high-level-client与ES交互（端口9200），需要手写CURD<br>
 查看/查询的数据源为ES，增删改的数据源为MySQL（不推荐用ES代替MySQL作为持久层）<br>
@@ -40,7 +38,6 @@ Java Web项目的持久层看作数据库和项目之间的中间件，ES模块�
 # springboot_es
 ①JDK8<br>
 ②SpringBoot2.1.3+MBP+spring-data-elasticsearch3.1.6+ES6.2.2<br>
-
 ③How2J SpringBoot ES示例<br>
 ④spring-data-elasticsearch<br>
 spring-data-elasticsearch通过@Document+ES Repository可以实现直接对ES快速CURD（端口9300）<br>
