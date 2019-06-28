@@ -50,9 +50,9 @@ public class CodeGenerator {
 
         /* 包配置 */
         final PackageConfig pc = new PackageConfig();
-        final String moduleName = scanner("模块名"); /* 输入与Application平行的包名，如demo */
+        final String moduleName = scanner("模块名");
         pc.setModuleName(moduleName);
-        pc.setParent("com");
+        pc.setParent("com.module");
         pc.setEntity("model");
         pc.setMapper("mapper");
         pc.setXml("mapper");

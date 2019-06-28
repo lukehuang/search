@@ -1,4 +1,4 @@
-package com.demo.model;
+package com.module.demo.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

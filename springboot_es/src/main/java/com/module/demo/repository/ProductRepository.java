@@ -1,6 +1,6 @@
-package com.demo.repository;
+package com.module.demo.repository;
 
-import com.demo.model.Product;
+import com.module.demo.model.Product;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /* ES Repository */

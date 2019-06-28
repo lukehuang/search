@@ -44,10 +44,3 @@ spring-data-elasticsearch通过@Document+ES Repository可以实现直接对ES快
 spring-data-elasticsearch到3.2.x（还未发布）才支持ES6.2.3及以上版本<br>
 ⑤业务<br>
 demo包：CURD+分页+查询<br>
-
-************************************************************************************************************************
-
-# 参考
-①https://blog.wizzer.cn/archives/2299（Lucene3）<br>
-②http://how2j.cn/k/search-engine/search-engine-intro/1672.html（Lucene7）<br>
-③http://how2j.cn/k/search-engine/search-engine-java-api-index/1700.html（ES）<br>

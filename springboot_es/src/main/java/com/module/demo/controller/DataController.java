@@ -1,10 +1,10 @@
-package com.demo.controller;
+package com.module.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.common.util.PageBean;
-import com.demo.mapper.ProductMapper;
-import com.demo.model.Product;
-import com.demo.repository.ProductRepository;
+import com.module.demo.mapper.ProductMapper;
+import com.module.demo.model.Product;
+import com.module.demo.repository.ProductRepository;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
