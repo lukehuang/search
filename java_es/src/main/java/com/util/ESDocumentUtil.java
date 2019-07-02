@@ -57,7 +57,7 @@ public class ESDocumentUtil {
     /* todo ES文档管理 */
 
     /* 高可用RESTful ES Client */
-    private static RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
+    private static RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("127.0.0.1", 9200, "http")));
 
     /* 索引名 */
     private static String indexName = "how2java";

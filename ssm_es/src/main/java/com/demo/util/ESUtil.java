@@ -30,7 +30,7 @@ import java.util.Map;
 public class ESUtil {
 
     /* fixme 启动时从配置中读取ES配置 */
-    static RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
+    static RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("127.0.0.1", 9200, "http")));
 
     /************************************************************分割线************************************************************/
 

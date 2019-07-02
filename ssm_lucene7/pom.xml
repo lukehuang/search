@@ -118,6 +118,8 @@
             <groupId>com.dayainfo</groupId>
             <artifactId>IKAnalyzer</artifactId>
             <version>6.5.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/IKAnalyzer6.5.0.jar</systemPath>
         </dependency>
 
     </dependencies>

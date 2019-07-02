@@ -12,7 +12,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan("com.*.mapper")
+@MapperScan("com.**.mapper")
 public class DataSourceConfig {
 
     @Autowired
@@ -23,7 +23,7 @@ public class DataSourceConfig {
         /* 此处使用MBP的MybatisSqlSessionFactoryBean */
         MybatisSqlSessionFactoryBean sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.*.model");
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.**.model");
         PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver = new PathMatchingResourcePatternResolver();
         sqlSessionFactoryBean.setMapperLocations(pathMatchingResourcePatternResolver.getResources("classpath*:mapper/*Mapper.xml"));
         return sqlSessionFactoryBean.getObject();

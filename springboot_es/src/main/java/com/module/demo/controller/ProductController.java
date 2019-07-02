@@ -1,8 +1,8 @@
 package com.module.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.common.util.PageBean;
 import com.module.demo.mapper.ProductMapper;
+import com.module.demo.model.PageBean;
 import com.module.demo.model.Product;
 import com.module.demo.repository.ProductRepository;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -24,8 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("/data")
-public class DataController {
+@RequestMapping("/product")
+public class ProductController {
 
     @Autowired
     ProductMapper productMapper;
@@ -50,7 +50,7 @@ public class DataController {
         int pageSize = 10;
         int start = currentPage - 1; /* 开始页 */
         Sort sort = new Sort(Sort.Direction.ASC, "id");
-        Pageable pageable = new PageRequest(start, pageSize, sort);
+        Pageable pageable = PageRequest.of(start, pageSize, sort);
 
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(functionScoreQueryBuilder)
@@ -81,13 +81,13 @@ public class DataController {
     @RequestMapping("/insert")
     public ModelAndView insert(Product product) {
         productRepository.save(product); /* 修改时根据id覆盖？ */
-        return new ModelAndView("redirect:/data/list");
+        return new ModelAndView("redirect:/product/list");
     }
 
     @RequestMapping("/delete")
     public ModelAndView delete(Product product) {
         productRepository.delete(product);
-        return new ModelAndView("redirect:/data/list");
+        return new ModelAndView("redirect:/product/list");
     }
 
     /* 全部删除 */

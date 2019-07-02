@@ -43,4 +43,5 @@ Java Web项目的持久层看作数据库和项目之间的中间件，ES模块�
 spring-data-elasticsearch通过@Document+ES Repository可以实现直接对ES快速CURD（端口9300）<br>
 spring-data-elasticsearch到3.2.x（还未发布）才支持ES6.2.3及以上版本<br>
 ⑤业务<br>
+initial包：启动项目前同步ES<br>
 demo包：CURD+分页+查询<br>

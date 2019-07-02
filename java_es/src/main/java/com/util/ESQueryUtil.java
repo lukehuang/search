@@ -25,7 +25,7 @@ public class ESQueryUtil {
     /* todo ES查询操作 */
 
     /* 高可用RESTful ES Client */
-    private static RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
+    private static RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("127.0.0.1", 9200, "http")));
 
     /* 查询所有type？ */
     private static SearchHits search(String index, String filed, String keyword, int start, int count) throws IOException {
