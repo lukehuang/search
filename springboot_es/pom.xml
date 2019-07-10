@@ -63,11 +63,19 @@
             <version>3.1.0</version>
         </dependency>
 
-        <!-- ElasticSearch -->
+        <!--
+        ①最高支持ES 6.2.2
+        ②自带elasticsearch-rest-client/transport 6.43
+        -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-elasticsearch</artifactId>
-            <version>3.1.6.RELEASE</version><!-- 最高支持ES 6.2.2 -->
+            <version>3.1.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>6.4.3</version><!-- 需要与自带elasticsearch-rest-client版本相同 -->
         </dependency>
 
         <!-- 工具 -->

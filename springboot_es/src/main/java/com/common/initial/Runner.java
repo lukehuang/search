@@ -5,6 +5,7 @@ import com.module.demo.mapper.ProductMapper;
 import com.module.demo.model.Product;
 import com.module.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
@@ -16,6 +17,9 @@ import java.util.List;
 @Component
 public class Runner implements ApplicationRunner {
 
+    @Value("${elasticsearch.index}")
+    private String indexName;
+
     @Autowired
     ProductMapper productMapper;
 
@@ -25,11 +29,17 @@ public class Runner implements ApplicationRunner {
     /* 启动项目前同步ES */
     @Override
     public void run(ApplicationArguments args) {
-        /*
-         * fixme 没有索引则创建
-         * ①elasticsearch-rest-high-level-client与spring-data-elasticsearch自带的elasticsearch-rest-client冲突
-         * ②使用elasticsearch-rest-client创建索引
-         * */
+        try {
+            if (!ESUtil.checkExistIndex(indexName)) {
+                ESUtil.createIndex(indexName);
+            }
+            ESUtil.checkExistIndex(indexName);
+            ESUtil.client.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /* Product @Document注解，没有索引会自动创建 */
         List<Product> productList = productMapper.selectList(new QueryWrapper<>());
         long startTime = System.currentTimeMillis();
         productRepository.saveAll(productList);

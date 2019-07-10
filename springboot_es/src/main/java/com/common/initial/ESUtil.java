@@ -1,4 +1,4 @@
-package com.util;
+package com.common.initial;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.ElasticsearchStatusException;
@@ -10,36 +10,12 @@ import org.elasticsearch.client.RestHighLevelClient;
 
 import java.io.IOException;
 
-public class ESIndexUtil {
+public class ESUtil {
 
-    public static void main(String[] args) {
-        try {
-            String indexName = "how2java";
-            if (!checkExistIndex(indexName)) {
-                createIndex(indexName);
-            }
-            if (checkExistIndex(indexName)) {
-                deleteIndex(indexName);
-            }
-            checkExistIndex(indexName);
-            client.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /************************************************************分割线************************************************************/
-    /* todo ES索引管理 */
-
-    /*
-    * HighLevelClient
-    * ①RestClient即LowLevelClient，直接发送ES命令
-    * ②HighLevelClient基于LowLevelClient
-    * */
-    private static RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("127.0.0.1", 9200, "http")));
+    public static RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("127.0.0.1", 9200, "http")));
 
     /* 创建索引 */
-    private static void createIndex(String indexName) {
+    public static void createIndex(String indexName) {
         try {
             CreateIndexRequest request = new CreateIndexRequest(indexName);
             client.indices().create(request);
@@ -51,7 +27,7 @@ public class ESIndexUtil {
     }
 
     /* 删除索引 */
-    private static void deleteIndex(String indexName) {
+    public static void deleteIndex(String indexName) {
         try {
             DeleteIndexRequest request = new DeleteIndexRequest(indexName);
             client.indices().delete(request);
@@ -63,7 +39,7 @@ public class ESIndexUtil {
     }
 
     /* 判断索引是否存在 */
-    private static boolean checkExistIndex(String indexName) throws IOException {
+    public static boolean checkExistIndex(String indexName) throws IOException {
         boolean result = true;
         try {
             OpenIndexRequest openIndexRequest = new OpenIndexRequest(indexName);

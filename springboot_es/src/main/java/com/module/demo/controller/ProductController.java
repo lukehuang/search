@@ -14,16 +14,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/product")
 public class ProductController {
 
@@ -91,7 +90,6 @@ public class ProductController {
     }
 
     /* 全部删除 */
-    @ResponseBody
     @RequestMapping("/deleteAll")
     public String deleteAll() {
         long count = productRepository.count();
@@ -104,7 +102,6 @@ public class ProductController {
     }
 
     /* 批量插入 */
-    @ResponseBody
     @RequestMapping("/batchInsert")
     public String batchInsert() {
         List<Product> productList = productMapper.selectList(new QueryWrapper<>());

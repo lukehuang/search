@@ -13,7 +13,7 @@ import java.util.List;
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
-    /* 中文乱码 */
+    /* 中文乱码（fixme 会导致JSON转换失败） */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
