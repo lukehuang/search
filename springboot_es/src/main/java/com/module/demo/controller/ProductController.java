@@ -27,10 +27,10 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    ProductMapper productMapper;
+    private ProductMapper productMapper;
 
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @RequestMapping("/list")
     public ModelAndView list(

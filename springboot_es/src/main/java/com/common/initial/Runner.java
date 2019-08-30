@@ -21,10 +21,10 @@ public class Runner implements ApplicationRunner {
     private String indexName;
 
     @Autowired
-    ProductMapper productMapper;
+    private ProductMapper productMapper;
 
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     /* 启动项目前同步ES */
     @Override
