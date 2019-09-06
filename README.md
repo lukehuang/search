@@ -23,7 +23,7 @@ ESIndexUtil（ES索引管理）<br>
 ESDocumentUtil（ES文档管理）<br>
 ESBatchUtil（ES批量操作）<br>
 ESQueryUtil（ES查询操作）<br>
-④技术细节<br>
+④归档<br>
 transport通过TCP方式访问ES（只支持Java/端口9300）<br>
 rest-client/rest-high-level-client通过HTTP方式访问ES（无语言限制/端口9200）<br>
 Java Web项目的持久层看作数据库和项目之间的中间件，ES模块看作ES和项目之间的中间件（ES是另一种"数据库"）<br>
