@@ -115,7 +115,7 @@
             <version>7.2.1</version>
         </dependency>
         <dependency>
-            <groupId>com.dayainfo</groupId>
+            <groupId>com</groupId>
             <artifactId>IKAnalyzer</artifactId>
             <version>6.5.0</version>
             <scope>system</scope>

@@ -1,7 +1,7 @@
 package com.controller;
 
-import com.model.Test;
 import com.mapper.TestMapper;
+import com.model.Test;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -52,7 +52,7 @@ public class SearchController {
         long a1 = System.currentTimeMillis();
 
         /* 本地索引配置 */
-        FSDirectory directory = FSDirectory.open(new File("C:\\Users\\Administrator\\Desktop\\新建文件夹 (2)"));
+        FSDirectory directory = FSDirectory.open(new File("C:/Users/Administrator/Desktop/新建文件夹"));
         IKAnalyzer analyzer = new IKAnalyzer(true);
         IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_36, analyzer);
         IndexWriter writer = new IndexWriter(directory, config);
