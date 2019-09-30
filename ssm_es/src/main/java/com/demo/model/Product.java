@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
 public class Product extends Model<Product> {
 
     private static final long serialVersionUID = 1L;

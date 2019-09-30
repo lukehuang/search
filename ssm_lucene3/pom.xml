@@ -117,6 +117,13 @@
             <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/IKAnalyzer2012.jar</systemPath>
         </dependency>
 
+        <!-- 工具 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.10</version>
+        </dependency>
+
     </dependencies>
 
     <build>

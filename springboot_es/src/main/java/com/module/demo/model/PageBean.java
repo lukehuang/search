@@ -8,16 +8,16 @@ import java.util.List;
 @Data
 public class PageBean {
 
-    private List list; // 分页列表
-    private Integer totalRecord; // 总记录数
-    private Integer pageSize; // 每页记录数
-    private Integer totalPage; // 总页数
-    private Integer currentPage; // 当前页
-    private Integer showPage; // 展示多少页
-    private Integer beginPage; // 头页（展示页的第一页）
-    private Integer endPage; // 尾页（展示页的最后一页）
-    private String pageURL; // 分页URL
-    private Object queryBean; // 查询条件实体类
+    private List list; /* 分页列表 */
+    private Integer totalRecord; /* 总记录数 */
+    private Integer pageSize; /* 每页记录数 */
+    private Integer totalPage; /* 总页数 */
+    private Integer currentPage; /* 当前页 */
+    private Integer showPage; /* 展示多少页 */
+    private Integer beginPage; /* 头页（展示页的第一页） */
+    private Integer endPage; /* 尾页（展示页的最后一页） */
+    private String pageURL; /* 分页URL */
+    private Object queryBean; /* 查询条件实体类 */
 
     /* 非编译器提供的默认无参构造器 */
     public PageBean() {
