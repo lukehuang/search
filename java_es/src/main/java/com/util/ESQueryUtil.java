@@ -85,14 +85,14 @@ public class ESQueryUtil {
         };
         try {
             for (String keyword : keywordArray) {
-                long startTime = System.currentTimeMillis();
+                long begin = System.currentTimeMillis();
 
                 int start = 0;
                 int count = 1;
                 SearchHits hits = search("how2java", "name", keyword, start, count);
                 SearchHit[] searchHits = hits.getHits();
 
-                long times = System.currentTimeMillis() - startTime;
+                long times = System.currentTimeMillis() - begin;
                 for (SearchHit hit : searchHits) {
                     System.out.println("耗时:" + times / 1000.0 + "秒 命中结果:" + hit.getSourceAsString());
                 }

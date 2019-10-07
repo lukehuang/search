@@ -93,9 +93,9 @@ public class ProductController {
     @RequestMapping("/deleteAll")
     public String deleteAll() {
         long count = productRepository.count();
-        long startTime = System.currentTimeMillis();
+        long begin = System.currentTimeMillis();
         productRepository.deleteAll();
-        long times = System.currentTimeMillis() - startTime;
+        long times = System.currentTimeMillis() - begin;
 
         String msg = "删除:" + count + "条记录 耗时:" + times / 1000.0 + "秒";
         return msg;
@@ -105,9 +105,9 @@ public class ProductController {
     @RequestMapping("/batchInsert")
     public String batchInsert() {
         List<Product> productList = productMapper.selectList(new QueryWrapper<>());
-        long startTime = System.currentTimeMillis();
+        long begin = System.currentTimeMillis();
         productRepository.saveAll(productList);
-        long times = System.currentTimeMillis() - startTime;
+        long times = System.currentTimeMillis() - begin;
 
         String msg = "插入:" + productList.size() + "条记录 耗时:" + times / 1000.0 + "秒";
         return msg;

@@ -41,9 +41,9 @@ public class Runner implements ApplicationRunner {
 
         /* Product @Document注解，没有索引会自动创建 */
         List<Product> productList = productMapper.selectList(new QueryWrapper<>());
-        long startTime = System.currentTimeMillis();
+        long begin = System.currentTimeMillis();
         productRepository.saveAll(productList);
-        long times = System.currentTimeMillis() - startTime;
+        long times = System.currentTimeMillis() - begin;
         System.out.println("插入:" + productList.size() + "条文档 耗时:" + times / 1000.0 + "秒");
     }
 
