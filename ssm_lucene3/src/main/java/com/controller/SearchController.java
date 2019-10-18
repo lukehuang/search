@@ -59,7 +59,7 @@ public class SearchController {
 
         /* 准备数据 */
         List<String> productNames = new ArrayList();
-        String property = "property1"; // 搜索基于的字段
+        String property = "property1"; /* 搜索基于的字段 */
         List<Test> testList = testMapper.selectPropertyGroup(property);
         for (int j = 0; j < testList.size(); j++) {
             productNames.add(testList.get(j).getCommonProperty());
@@ -80,13 +80,13 @@ public class SearchController {
 
         /* 搜索器 */
         IndexReader reader = IndexReader.open(directory);
-        IndexSearcher searcher = new IndexSearcher(reader); // 读取本地索引
+        IndexSearcher searcher = new IndexSearcher(reader); /* 读取本地索引 */
 
         /* 搜索 */
         String keyword = "护眼带光源";
         QueryParser queryParser = new QueryParser(Version.LUCENE_36, property, analyzer);
         Query query = queryParser.parse(keyword);
-        ScoreDoc[] hits = searcher.search(query, 1000).scoreDocs; // 搜索核心方法
+        ScoreDoc[] hits = searcher.search(query, 1000).scoreDocs; /* 搜索核心方法 */
 
         /* 结果 */
         showSearchResults(hits, searcher, query, analyzer);
@@ -105,12 +105,12 @@ public class SearchController {
         Highlighter highlighter = new Highlighter(simpleHTMLFormatter, new QueryScorer(query));
 
         for (int i = 0; i < hits.length; ++i) {
-            ScoreDoc scoreDoc = hits[i]; // 具体的搜索结果
-            int docId = scoreDoc.doc; // 搜索结果在索引中的主键
-            Document d = searcher.doc(docId); // productNames的索引形式
+            ScoreDoc scoreDoc = hits[i]; /* 具体的搜索结果 */
+            int docId = scoreDoc.doc; /* 搜索结果在索引中的主键 */
+            Document d = searcher.doc(docId); /* productNames的索引形式 */
             List<Fieldable> fields = d.getFields();
-            System.out.print((i + 1)); // 序号
-            System.out.print("\t" + scoreDoc.score); // scoreDoc.score越高，匹配度越大
+            System.out.print((i + 1)); /* 序号 */
+            System.out.print("\t" + scoreDoc.score); /* scoreDoc.score越高，匹配度越大 */
             for (Fieldable f : fields) {
                 System.out.print("\t" + d.get(f.name()));
                 TokenStream tokenStream = analyzer.tokenStream(f.name(), new StringReader(d.get(f.name())));

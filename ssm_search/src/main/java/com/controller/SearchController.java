@@ -25,7 +25,7 @@ public class SearchController {
      * */
     private static SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
     private static String date = format.format(new Date());
-    private static Map propertyMap = new HashMap(); // 包含属性名+不同属性的列表
+    private static Map propertyMap = new HashMap(); /* 包含属性名+不同属性的列表 */
 
     /************************************************************分割线************************************************************/
     /* todo 搜索 */
@@ -37,7 +37,7 @@ public class SearchController {
 
         String now = format.format(new Date());
         if (!date.equals(now) || propertyMap.size() == 0) {
-            String[] propertyArray = {"property2", "property3"}; // 实体类需要group by的属性
+            String[] propertyArray = {"property2", "property3"}; /* 实体类需要group by的属性 */
             for (int i = 0; i < propertyArray.length; i++) {
                 List propertyList = new ArrayList();
                 List<Test> testList = testMapper.selectPropertyGroup(propertyArray[i]);
@@ -46,7 +46,7 @@ public class SearchController {
                 }
                 propertyMap.put(propertyArray[i], propertyList);
             }
-            date = now; // 更新全局时间
+            date = now; /* 更新全局时间 */
         }
 
         Map result = new HashMap();
@@ -90,7 +90,7 @@ public class SearchController {
         propertyList.add("c8");
         select.put("property3", propertyList);
 
-        PageHelper.startPage(currentPage, 10); // PageHelper分页插件
+        PageHelper.startPage(currentPage, 10); /* PageHelper分页插件 */
         List<Test> testList = testMapper.selectFuzzy2(select);
 
         Map result = new HashMap();
