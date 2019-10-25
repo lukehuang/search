@@ -10,7 +10,7 @@ public class IndexController {
 
     @RequestMapping("/")
     public ModelAndView index() {
-        return new ModelAndView("redirect:/product/list");
+        return new ModelAndView("index");
     }
 
 }
