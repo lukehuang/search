@@ -1,29 +1,29 @@
 package com.module.demo.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-/* 分页Bean */
 @Data
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class PageBean {
 
-    private List list; /* 分页列表 */
-    private Integer totalRecord; /* 总记录数 */
-    private Integer pageSize; /* 每页记录数 */
-    private Integer totalPage; /* 总页数 */
-    private Integer currentPage; /* 当前页 */
-    private Integer showPage; /* 展示多少页 */
-    private Integer beginPage; /* 头页（展示页的第一页） */
-    private Integer endPage; /* 尾页（展示页的最后一页） */
-    private String pageURL; /* 分页URL */
-    private Object queryBean; /* 查询条件实体类 */
+    private List list;
+    private Integer totalRecord;
+    private Integer pageSize;
+    private Integer totalPage;
+    private Integer currentPage;
+    private Integer showPage;
+    private Integer beginPage;
+    private Integer endPage;
+    private String pageURL;
+    private Object queryBean;
 
-    /* 非编译器提供的默认无参构造器 */
-    public PageBean() {
-    }
-
-    /* 分页构造函数 */
     public PageBean(List list, Integer totalRecord, Integer pageSize, Integer currentPage) {
         this.list = list;
         this.totalRecord = totalRecord;
@@ -34,7 +34,6 @@ public class PageBean {
         countBeginEnd(totalPage, currentPage, showPage);
     }
 
-    /* 计算总页数 */
     private Integer countTotalPage(Integer totalRecord, Integer pageSize) {
         int totalPage = 0;
         if (totalRecord % pageSize == 0) {
@@ -45,7 +44,6 @@ public class PageBean {
         return totalPage;
     }
 
-    /* 计算头尾页 */
     private void countBeginEnd(Integer totalPage, Integer currentPage, Integer showPage) {
         int beginPage = currentPage;
         int endPage = currentPage + showPage - 1;

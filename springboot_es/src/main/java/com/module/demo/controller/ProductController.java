@@ -14,13 +14,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/product")
@@ -32,7 +32,7 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public ModelAndView list(
             @RequestParam(defaultValue = "name") String field,
             @RequestParam(defaultValue = "") String keyword,
@@ -61,56 +61,60 @@ public class ProductController {
         PageBean pageBean = new PageBean(productPage.getContent(), (int) productPage.getTotalElements(), pageSize, currentPage);
         pageBean.setPageURL(request.getRequestURI() + "?currentPage");
 
-        ModelAndView view = new ModelAndView("/list");
+        ModelAndView view = new ModelAndView();
         view.addObject("pageBean", pageBean);
+        view.setViewName("/list");
         return view;
     }
 
     /* 新增/修改页 */
-    @RequestMapping("/page")
+    @GetMapping("/page")
     public ModelAndView page(@RequestParam(defaultValue = "0") Integer id) {
         Product product = productRepository.findById(id).get();
 
-        ModelAndView view = new ModelAndView("/page");
+        ModelAndView view = new ModelAndView();
         view.addObject("product", product);
+        view.setViewName("/page");
         return view;
     }
 
     /* 响应新增/修改表单 */
-    @RequestMapping("/insert")
+    @PostMapping("/insert")
     public ModelAndView insert(Product product) {
         productRepository.save(product); /* 修改时根据id覆盖？ */
         return new ModelAndView("redirect:/product/list");
     }
 
-    @RequestMapping("/delete")
+    @GetMapping("/delete")
     public ModelAndView delete(Product product) {
         productRepository.delete(product);
         return new ModelAndView("redirect:/product/list");
     }
 
     /* 全部删除 */
-    @RequestMapping("/deleteAll")
-    public String deleteAll() {
+    @GetMapping("/deleteAll")
+    public Map deleteAll() {
         long count = productRepository.count();
         long begin = System.currentTimeMillis();
         productRepository.deleteAll();
         long times = System.currentTimeMillis() - begin;
 
-        String msg = "删除:" + count + "条记录 耗时:" + times / 1000.0 + "秒";
-        return msg;
+        Map map = new HashMap();
+        map.put("result", "删除:" + count + "条记录 耗时:" + times / 1000.0 + "秒");
+        return map;
     }
 
     /* 批量插入 */
-    @RequestMapping("/batchInsert")
-    public String batchInsert() {
+    @GetMapping("/batchInsert")
+    public Map batchInsert() {
         List<Product> productList = productMapper.selectList(new QueryWrapper<>());
         long begin = System.currentTimeMillis();
         productRepository.saveAll(productList);
         long times = System.currentTimeMillis() - begin;
 
-        String msg = "插入:" + productList.size() + "条记录 耗时:" + times / 1000.0 + "秒";
-        return msg;
+        Map map = new HashMap();
+        map.put("result", "插入:" + productList.size() + "条记录 耗时:" + times / 1000.0 + "秒");
+        return map;
     }
 
 }

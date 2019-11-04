@@ -70,7 +70,7 @@ public class MatchUtil {
     }
 
     static void select(String table, String column, List list) {
-        String url = "jdbc:mysql://127.0.0.1:3306/untitled?useSSL=false";
+        String url = "jdbc:mysql://127.0.0.1:3306/untitled?useSSL=false&characterEncoding=utf-8";
         String username = "root";
         String password = "2468";
         try {
@@ -90,7 +90,7 @@ public class MatchUtil {
     }
 
     static void update(String table, Map map) {
-        String url = "jdbc:mysql://127.0.0.1:3306/untitled?useSSL=false";
+        String url = "jdbc:mysql://127.0.0.1:3306/untitled?useSSL=false&characterEncoding=utf-8";
         String username = "root";
         String password = "2468";
         try {
